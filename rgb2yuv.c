@@ -18,8 +18,8 @@ typedef int 			BOOL;
 
 typedef struct  
 {
-	WORD    bfType;					// The file type; must be BM. 4 bytes
-	DWORD   bfSize;					// The size, in bytes, of the bitmap file. 2 bytes
+	WORD    bfType;					// The file type; must be BM. 2 bytes
+	DWORD   bfSize;					// The size, in bytes, of the bitmap file. 4 bytes
 	WORD    bfReserved1;			//2 bytes
 	WORD    bfReserved2;			//2 bytes
 	DWORD   bfOffBits;				// The offset, in bytes, to the bitmap bits.
