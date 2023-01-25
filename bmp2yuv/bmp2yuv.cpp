@@ -34,39 +34,44 @@ int main(int argc, char** argv)
 {
 
 	argparse::ArgumentParser arg_parcer("bmp2yuv");
-	
+
 	arg_parcer.add_argument("--bmp")
 		.help("bitmap file name")
 		.required();
 
-	try {
+	arg_parcer.add_argument("--output")
+		.help("yuv file name")
+		.required();
+
+	try 
+	{
 		arg_parcer.parse_args(argc, argv);
 	}
-	catch (const std::runtime_error& err) {
+	catch (const std::runtime_error& err) 
+	{
 		std::cerr << err.what() << std::endl;
 		std::cerr << arg_parcer;
 		std::exit(1);
 	}
 
-	if (arg_parcer.is_used("--bmp"))
-	{
-		std::string fname = arg_parcer.get<std::string>("--bmp");  
-		try
-		{
-			BMPFile bmp_data = InputOutput::read_bmpfile(fname);
-
-			YUVFile yuv_data = Converter::RGBtoYUV(bmp_data);
-
-			InputOutput::write_file(fname + ".yuv", yuv_data.raw_data);
-		}
-		catch (const std::exception& err) {
-			std::cerr << err.what() << std::endl;
-		}
-	}
-	else
+	if (!arg_parcer.is_used("--bmp") || !arg_parcer.is_used("--output"))
 	{
 		std::cerr << arg_parcer.help().str();
 	}
+
+	std::string bmp_fname = arg_parcer.get<std::string>("--bmp");  
+	std::string yuv_fname = arg_parcer.get<std::string>("--output");
+	try
+	{
+		BMPFile bmp_data = InputOutput::read_bmpfile(bmp_fname);
+		YUVFile yuv_data = Converter::RGBtoYUV(bmp_data);
+		InputOutput::write_file(yuv_fname, yuv_data.raw_data);
+	}
+	catch (const std::exception& err) 
+	{
+		std::cerr << err.what() << std::endl;
+	}
+
 
 	return 0;
 } 
