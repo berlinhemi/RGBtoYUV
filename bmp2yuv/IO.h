@@ -12,5 +12,5 @@ class InputOutput
 
 public:
 	static BMPFile read_bmpfile(const std::string& file_name);
-	static void write_file(const std::string& file_name, std::vector<BYTE>& data);
+	static void write_file(const std::string& file_name, const std::vector<BYTE>& data);
 };

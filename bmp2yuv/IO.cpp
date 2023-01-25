@@ -17,12 +17,12 @@ namespace fs = std::filesystem;
 
 BMPFile InputOutput::read_bmpfile(const std::string& file_name)
 {
-	//BMPFile bmp;
 	std::ifstream fi;
 
 	BITMAPFILEHEADER 	kFileHeader;
 	BITMAPINFOHEADER 	kInfoHeader;
-	int				unWidthAdjusted, unDataBytes; //size(int) = 4bytes (same as int)
+	int				unWidthAdjusted;
+	int				unDataBytes; 
 	std::vector<BYTE> pRGBData;
 
 	if (!fs::exists(file_name))
@@ -88,7 +88,7 @@ BMPFile InputOutput::read_bmpfile(const std::string& file_name)
 	
 }
  
-void InputOutput::write_file(const std::string& file_name, std::vector<BYTE>& data)
+void InputOutput::write_file(const std::string& file_name, const std::vector<BYTE>& data)
 {
 	std::ofstream fo(file_name, std::ios::binary | std::ios::out);
 	if (!fo.is_open())
